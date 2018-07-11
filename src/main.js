@@ -5,7 +5,8 @@ import router from './router'
 Vue.config.productionTip = false
 
 new Vue({
-  selected: '',
+  priority: '',
+  category: '',
   router,
   render: h => h(App)
 }).$mount('#app')

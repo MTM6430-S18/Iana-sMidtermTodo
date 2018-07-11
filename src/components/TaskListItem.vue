@@ -16,7 +16,7 @@
       </label>
       <label>
       Priority
-      <select v-model="editTask.selected">
+      <select v-model="editTask.priority">
     <option>Low</option>
     <option>Medium</option>
     <option>High</option>
@@ -24,7 +24,7 @@
     </label>
     <label>
       Category
-      <select v-model="editTask.selected">
+      <select v-model="editTask.category">
     <option>Personal</option>
     <option>Work</option>
     <option>School</option>
@@ -37,12 +37,13 @@
     </form>
     <font-awesome-icon :icon="deleteIcon" @click="$emit('deleteTask', task)" />
   </div>
-  <div v-else class="task-list-item" >
+  <div v-else class="task-list-item grid-container" >
     <font-awesome-icon :icon="statusIcon" @click="$emit('toggleDone', task)" />
-    <span @click="edit">{{ task.title }}</span>
-    <span @click="edit">{{ task.dueAt }}</span>
-    <span @click="edit">{{ task.description }}</span>
-    <span @click="edit">{{ task.selected }}</span>
+    <span @click="edit" class="grid-item">{{ task.title }}</span>
+    <span @click="edit" class="grid-item">{{ task.dueAt }}</span>
+    <span @click="edit" class="grid-item">{{ task.description }}</span>
+    <span @click="edit" class="grid-item">{{ task.priority }}</span>
+    <span @click="edit" class="grid-item">{{ task.category }}</span>
     <font-awesome-icon :icon="deleteIcon" @click="$emit('deleteTask', task)" />
   </div>
 </template>
@@ -66,7 +67,8 @@ export default {
   data: () => ({
     isEditing: false,
     editTask: {},
-    selected: ''
+    priority: '',
+    category: ''
   }),
   computed: {
     statusIcon () {
@@ -101,7 +103,15 @@ export default {
   margin: 0.5rem 0;
   padding: 0.5rem;
   transition: all 0.4s;
+
+  .grid-container {
+    // flex-direction: row;
+    // align-items: stretch;
+    display: grid;
+    
+  }
 }
+
 
 .is-editing {
   margin: 1rem 0;
@@ -137,8 +147,8 @@ export default {
   }
 
   .button {
-    background: hsl(197, 90%, 43%);
-    border: 1px solid hsl(197, 90%, 48%);
+    background: hsl(268, 90%, 62%);
+    border: 1px solid hsl(81, 84%, 58%);
     border-radius: 0.25rem;
     padding: 0.5rem 0.5rem;
     color: hsl(0, 0%, 99%);
@@ -151,13 +161,13 @@ export default {
 
     &:active {
       box-shadow: none;
-      background: hsl(197, 90%, 33%);
-      border: 1px solid hsl(197, 90%, 38%);
+      background: hsl(290, 80%, 58%);
+      border: 1px solid hsl(61, 89%, 64%);
     }
 
     &.isOutline {
       background: transparent;
-      color: hsl(197, 90%, 43%);
+      color: hsl(290, 91%, 43%);
       box-shadow: none;
     }
   }

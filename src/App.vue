@@ -2,8 +2,16 @@
   <div id="app">
     <the-header v-once />
     <new-task-form @addTask="addTask" />
-     <button @click="sortAscending = !sortAscending">Sort</button>
-
+    <label>Filter by Category:</label>
+    <select name="priority-filter" id="priority-filter" v-model="selectedPriority">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+      <option 
+      v-for="option in priorityOptions"
+      :value="option.id"
+      :key="option.id">{{option.name}}</option>
+    </select>
     <div id="nav" class="tabs">
       <router-link to="/active">Active Tasks</router-link>
       <router-link to="/completed">Completed Tasks</router-link>
@@ -69,7 +77,8 @@ export default {
       { id: 9, title: 'Quiz - Vue Basics', dueAt: '2018-06-12', isComplete: false },
       { id: 10, title: 'Midterm Project 2', dueAt: '2018-05-28', isComplete: false }
     ],
-    selected: ''
+    priority: '',
+    category: ''
   }),
   computed: {
     activeTasks () {
@@ -85,6 +94,11 @@ export default {
     },
     upcomingTasks () {
       return this.activeTasks.filter(task => new Date(task.dueAt) >= Date.now())
+    },
+    filteredPriorityTasks () {
+      return (!this.selectedPriority)
+      ? this.tasks
+      : this.tasks.filter(task => task.priority.id === this.selectedPriority)
     }
   },
 
@@ -153,6 +167,15 @@ export default {
   }
 }
 
+#priority-filter {
+  background: hsl(0, 0%, 97%);
+    border: 1px solid hsl(0, 0%, 93%);
+    font-size: 1.1rem;
+    padding: 0.4em;
+    border-radius: 0.25rem;
+    margin-left: 0.5em;
+}
+
 .tabs {
   display: flex;
   justify-content: space-between;
@@ -170,8 +193,8 @@ export default {
     transition: all 0.6s ease-in-out;
 
     &.router-link-exact-active {
-      border-bottom-color: #42b983;
-      color: #42b983;
+      border-bottom-color: #406be0;
+      color: #3564c9;
     }
   }
 }

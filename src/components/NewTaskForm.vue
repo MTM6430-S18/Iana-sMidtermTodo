@@ -14,7 +14,7 @@
     </label>
     <label>
       Priority
-      <select v-model="newTask.selected">
+      <select v-model="newTask.priority">
     <option>Low</option>
     <option selected>Medium</option>
     <option>High</option>
@@ -22,7 +22,7 @@
     </label>
      <label>
       Category
-      <select v-model="newTask.selected">
+      <select v-model="newTask.category">
     <option>Personal</option>
     <option>Work</option>
     <option>School</option>
@@ -36,7 +36,8 @@
 export default {
   data: () => ({
     newTask: {},
-    selected: ''
+    priority: '',
+    category: ''
   }),
 
   created () {
@@ -59,6 +60,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style lang="scss">
